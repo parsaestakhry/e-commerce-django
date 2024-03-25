@@ -45,9 +45,6 @@ class Product(models.Model):
         return self.name
     
     
-
-
-
 class Manager(models.Model):
     id = models.IntegerField(primary_key=True)
     first_name = models.CharField(max_length=200)
