@@ -40,6 +40,7 @@ class Product(models.Model):
     amount = models.IntegerField()
     purchase = models.ManyToManyField(Purchase)
     category_id = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
+    url = models.URLField(default="")
     
     def __str__(self) -> str:
         return self.name
