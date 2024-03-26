@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from rest_framework.decorators import api_view
-from .models import Customer
+from .models import Customer,Category,Product,Purchase,Manager
 from .serializers import CustomerSerializer
 from rest_framework.response import Response
 # Create your views here.
@@ -15,3 +15,8 @@ def getCustomer(request):
     customers = Customer.objects.all()
     serializer = CustomerSerializer(customers, many=True)
     return Response(serializer.data)
+
+
+@api_view(['GET'])
+def getCategory(request):
+    pass

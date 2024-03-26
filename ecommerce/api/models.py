@@ -21,7 +21,7 @@ class Purchase(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.DO_NOTHING)
     
     def __str__(self) -> str:
-        return self.id + ":" + self.customer
+        return str(self.id)
     
 
 class Category(models.Model):
