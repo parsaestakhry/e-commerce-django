@@ -10,6 +10,7 @@ from rest_framework.response import Response
 def hello(request):
     return HttpResponse("hello")
 
+# get multiple items
 
 @api_view(['GET'])
 def getCustomers(request):
@@ -45,10 +46,12 @@ def getManagers(request):
     serializer = ManagerSerializer(managers, many=True)
     return Response(serializer.data)
 
+# get single item
 
 @api_view(['GET'])
 def getSingleCustomer(requues,id):
     customer = Customer.objects.get(id=id)
+    
     serializer = CustomerSerializer(customer, many=False)
     return Response(serializer.data)
 
@@ -76,6 +79,8 @@ def getSingleManager(requues,id):
     manager = Manager.objects.get(id=id)
     serializer = ManagerSerializer(manager, many=False)
     return Response(serializer.data)
+
+
 
 
 
