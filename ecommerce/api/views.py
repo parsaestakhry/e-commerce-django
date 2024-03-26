@@ -6,6 +6,7 @@ from .serializers import CustomerSerializer,CategorySerializer,ProductSerializer
 from rest_framework.response import Response
 # Create your views here.
 
+
 def hello(request):
     return HttpResponse("hello")
 
@@ -42,6 +43,38 @@ def getPurchases(request):
 def getManagers(request):
     managers = Manager.objects.all()
     serializer = ManagerSerializer(managers, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def getSingleCustomer(requues,id):
+    customer = Customer.objects.get(id=id)
+    serializer = CustomerSerializer(customer, many=False)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def getSingleCateogory(requues,id):
+    category = Category.objects.get(id=id)
+    serializer = CategorySerializer(category, many=False)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def getSingleProduct(requues,id):
+    product = Product.objects.get(id=id)
+    serializer = ProductSerializer(product, many=False)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def getSinglePurchase(requues,id):
+    purchase = Purchase.objects.get(id=id)
+    serializer = PurchaseSerializer(purchase, many=False)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def getSingleManager(requues,id):
+    manager = Manager.objects.get(id=id)
+    serializer = ManagerSerializer(manager, many=False)
     return Response(serializer.data)
 
 
