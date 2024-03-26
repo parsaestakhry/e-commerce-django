@@ -4,6 +4,8 @@ from rest_framework.decorators import api_view
 from .models import Customer,Category,Product,Purchase,Manager
 from .serializers import CustomerSerializer,CategorySerializer,ProductSerializer,PurchaseSerializer,ManagerSerializer
 from rest_framework.response import Response
+from rest_framework.views import exception_handler
+from rest_framework import status
 # Create your views here.
 
 
@@ -51,7 +53,6 @@ def getManagers(request):
 @api_view(['GET'])
 def getSingleCustomer(requues,id):
     customer = Customer.objects.get(id=id)
-    
     serializer = CustomerSerializer(customer, many=False)
     return Response(serializer.data)
 
@@ -81,10 +82,61 @@ def getSingleManager(requues,id):
     return Response(serializer.data)
 
 
+# create model objects 
 
 
+@api_view(['POST'])
+def createCustomer(request):
+    if request.method == "POST":
+        data = request.data
+        serializer = CustomerSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    
+@api_view(['POST'])
+def createCategory(request):
+    if request.method == "POST":
+        data = request.data
+        serializer = CategorySerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-
+@api_view(['POST'])
+def createProduct(request):
+    if request.method == "POST":
+        data = request.data
+        serializer = ProductSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    
+@api_view(['POST'])
+def createPurchase(request):
+    if request.method == "POST":
+        data = request.data
+        serializer = PurchaseSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    
+@api_view(['POST'])
+def createManager(request):
+    if request.method == "POST":
+        data = request.data
+        serializer = ManagerSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
