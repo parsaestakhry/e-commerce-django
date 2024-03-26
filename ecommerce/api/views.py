@@ -138,5 +138,87 @@ def createManager(request):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+    
+    
+
+#update item
+
+
+@api_view(['PUT'])
+def updateCustomer(request,id):
+    try:
+        customer = Customer.objects.get(id=id)
+    except Customer.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+        
+    serializer = CustomerSerializer(instance=customer,data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
+    return Response(status=status.HTTP_400_BAD_REQUEST)
+        
+
+@api_view(['PUT'])
+def updateCategory(request,id):
+    try:
+        category = Category.objects.get(id=id)
+    except Category.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+        
+    serializer = CategorySerializer(instance=category,data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
+    return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+def updateProduct(request,id):
+    try:
+        product = Product.objects.get(id=id)
+    except Product.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+        
+    serializer = ProductSerializer(instance=product,data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
+    return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+def updatePurchase(request,id):
+    try:
+        purchase = Purchase.objects.get(id=id)
+    except Purchase.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+        
+    serializer = PurchaseSerializer(instance=purchase,data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
+    return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+def updateManager(request,id):
+    try:
+        manager = Manager.objects.get(id=id)
+    except Manager.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+        
+    serializer = ManagerSerializer(instance=manager,data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
+    return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+
+
+    
+    
+    
+    
+        
 
 
