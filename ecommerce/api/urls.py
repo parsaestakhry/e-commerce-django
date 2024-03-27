@@ -33,6 +33,10 @@ urlpatterns = [
     
     # delete single item
     path('delete-customer/<int:id>/', views.deleteCustomer, name='delete-customer'),
+    path('delete-category/<int:id>/', views.deleteCategory, name='delete-category'),
+    path('delete-purchase/<int:id>/', views.deletePurchase, name='delete-purchase'),
+    path('delete-product/<int:id>/', views.deleteProduct, name='delete-product'),
+    path('delete-manager/<int:id>/', views.deleteManager, name='delete-manager')
     
     
     

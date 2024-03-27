@@ -213,6 +213,57 @@ def updateManager(request,id):
     return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
+# delete single item
+@api_view(['DELETE'])
+def deleteCustomer(request,id):
+    try:
+        customer = Customer.objects.get(id=id)
+    except Customer.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    customer.delete()
+    return HttpResponse("deleted")
+
+
+@api_view(['DELETE'])
+def deleteCategory(request,id):
+    try:
+        category = Category.objects.get(id=id)
+    except Category.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    category.delete()
+    return HttpResponse("deleted")
+
+
+@api_view(['DELETE'])
+def deleteProduct(request,id):
+    try:
+        product = Product.objects.get(id=id)
+    except Product.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    product.delete()
+    return HttpResponse("deleted")
+
+
+@api_view(['DELETE'])
+def deletePurchase(request,id):
+    try:
+        purchase = Purchase.objects.get(id=id)
+    except Purchase.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    purchase.delete()
+    return HttpResponse("deleted")
+
+
+@api_view(['DELETE'])
+def deleteManager(request,id):
+    try:
+        manager = Manager.objects.get(id=id)
+    except Manager.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    manager.delete()
+    return HttpResponse("deleted")
+
+
 
 
     
