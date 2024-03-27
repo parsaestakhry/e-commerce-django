@@ -52,7 +52,7 @@ class Manager(models.Model):
     last_name = models.CharField(max_length= 200)
     
     def __str__(self) -> str:
-        return self.name
+        return self.first_name
     
     
     
