@@ -1,5 +1,4 @@
-from django.shortcuts import render
-from django.http import HttpResponse,JsonResponse
+from django.http import HttpResponse
 from rest_framework.decorators import api_view
 from .models import Customer,Category,Product,Purchase,Manager
 from .serializers import CustomerSerializer,CategorySerializer,ProductSerializer,PurchaseSerializer,ManagerSerializer
