@@ -214,6 +214,8 @@ def updateManager(request,id):
 
 
 # delete single item
+
+
 @api_view(['DELETE'])
 def deleteCustomer(request,id):
     try:
@@ -262,6 +264,8 @@ def deleteManager(request,id):
         return Response(status=status.HTTP_404_NOT_FOUND)
     manager.delete()
     return HttpResponse("deleted")
+
+
 
 
 
