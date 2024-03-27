@@ -18,7 +18,7 @@ class Customer(models.Model):
 class Purchase(models.Model):
     id = models.IntegerField(primary_key=True)
     amount = models.FloatField()
-    customer = models.ForeignKey(Customer, on_delete=models.DO_NOTHING)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     
     def __str__(self) -> str:
         return str(self.id)
