@@ -39,7 +39,7 @@ class Product(models.Model):
     date_created = models.DateField(auto_now_add=True)
     amount = models.IntegerField()
     purchase = models.ManyToManyField(Purchase)
-    category_id = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
+    category_id = models.ForeignKey(Category, on_delete=models.CASCADE)
     url = models.URLField(default="")
     
     def __str__(self) -> str:
