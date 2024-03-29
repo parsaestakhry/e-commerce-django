@@ -10,7 +10,7 @@ class Customer(models.Model):
     password = models.CharField(max_length=50)
     phone_number = models.BigIntegerField()
     date_created = models.DateField(auto_now_add=True)
-    hello = models.CharField(max_length=100)
+    hello = models.CharField(max_length=100,default="hello")
     
     def __str__(self) -> str:
         return self.first_name + " - " + self.last_name
@@ -40,7 +40,7 @@ class Product(models.Model):
     date_created = models.DateField(auto_now_add=True)
     amount = models.IntegerField()
     purchase = models.ManyToManyField(Purchase)
-    category_id = models.ForeignKey(Category, on_delete=models.CASCADE)
+    category_id = models.ForeignKey(Category, on_delete=models.CASCADE,default=0)
     url = models.URLField(default="")
     
     def __str__(self) -> str:
