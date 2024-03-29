@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 # Create your models here.
 class Customer(models.Model):
     id = models.IntegerField(primary_key=True)
@@ -18,7 +18,7 @@ class Customer(models.Model):
 class Purchase(models.Model):
     id = models.IntegerField(primary_key=True)
     amount = models.FloatField()
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    customer = models.ForeignKey(User, on_delete=models.CASCADE, default=100)
     
     def __str__(self) -> str:
         return str(self.id)
