@@ -19,8 +19,6 @@ def registerUser(request):
 @api_view(['POST'])
 def authenticateUser(request):
     data = request.data
-    print(data['username'])
-    print(data['password'])
     user = authenticate(username=data['username'], password=data['password'])
     if user is not None:
         return HttpResponse("hello")
