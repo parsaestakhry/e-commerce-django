@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from rest_framework.views import exception_handler
 from rest_framework import status
 from django.shortcuts import render
+from django.contrib.auth.forms import UserCreationForm
 # Create your views here.
 
 
@@ -268,7 +269,12 @@ def deleteManager(request,id):
 
 
 def registerPage(request):
-    context = {}
+    form = UserCreationForm()
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+    context = {'form' : form}
     return render(request, 'accounts/register.html', context)
 
 
