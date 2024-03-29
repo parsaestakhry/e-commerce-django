@@ -41,8 +41,7 @@ urlpatterns = [
     
     
     # user login
-    path('login/', views.loginPage, name='login-page'),
-    path('register/', views.registerPage, name='register-page')
+    path('register/', views.registerUser, name='register-user')
     
     
     
