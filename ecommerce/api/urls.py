@@ -40,8 +40,7 @@ urlpatterns = [
     
     
     
-    # user login
-    path('register/', views.registerUser, name='register-user')
+    
     
     
     

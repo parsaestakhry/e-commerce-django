@@ -1,13 +1,11 @@
 from django.http import HttpResponse
 from rest_framework.decorators import api_view
 from .models import Customer,Category,Product,Purchase,Manager
-from .serializers import CustomerSerializer,CategorySerializer,ProductSerializer,PurchaseSerializer,ManagerSerializer,UserSerializer
+from .serializers import CustomerSerializer,CategorySerializer,ProductSerializer,PurchaseSerializer,ManagerSerializer
 from rest_framework.response import Response
 from rest_framework.views import exception_handler
 from rest_framework import status
 from django.shortcuts import render
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
 # Create your views here.
 
 
@@ -268,14 +266,7 @@ def deleteManager(request,id):
     return HttpResponse("deleted")
 
 
-@api_view(['POST'])
-def registerUser(request):
-    data = request.data
-    serializer = UserSerializer(data=data)
-    if serializer.is_valid():
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-    return Response(status=status.HTTP_400_BAD_REQUEST)
+
 
 
 
