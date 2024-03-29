@@ -5,6 +5,7 @@ from .serializers import CustomerSerializer,CategorySerializer,ProductSerializer
 from rest_framework.response import Response
 from rest_framework.views import exception_handler
 from rest_framework import status
+from django.shortcuts import render
 # Create your views here.
 
 
@@ -263,6 +264,20 @@ def deleteManager(request,id):
         return Response(status=status.HTTP_404_NOT_FOUND)
     manager.delete()
     return HttpResponse("deleted")
+
+
+
+def registerPage(request):
+    context = {}
+    return render(request, 'accounts/register.html', context)
+
+
+def loginPage(request):
+    context = {}
+    return render(request, 'accounts/login.html', context)
+
+
+
 
 
 

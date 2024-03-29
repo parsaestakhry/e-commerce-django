@@ -36,7 +36,13 @@ urlpatterns = [
     path('delete-category/<int:id>/', views.deleteCategory, name='delete-category'),
     path('delete-purchase/<int:id>/', views.deletePurchase, name='delete-purchase'),
     path('delete-product/<int:id>/', views.deleteProduct, name='delete-product'),
-    path('delete-manager/<int:id>/', views.deleteManager, name='delete-manager')
+    path('delete-manager/<int:id>/', views.deleteManager, name='delete-manager'),
+    
+    
+    
+    # user login
+    path('login/', views.loginPage, name='login-page'),
+    path('register/', views.registerPage, name='register-page')
     
     
     
