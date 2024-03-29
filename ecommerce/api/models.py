@@ -10,6 +10,7 @@ class Customer(models.Model):
     password = models.CharField(max_length=50)
     phone_number = models.BigIntegerField()
     date_created = models.DateField(auto_now_add=True)
+    hello = models.CharField(max_length=100)
     
     def __str__(self) -> str:
         return self.first_name + " - " + self.last_name
