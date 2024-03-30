@@ -39,6 +39,9 @@ urlpatterns = [
     path('delete-manager/<int:id>/', views.deleteManager, name='delete-manager'),
     
     
+
+    
+    
     
     
     
