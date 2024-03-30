@@ -11,6 +11,7 @@ class Customer(models.Model):
     phone_number = models.BigIntegerField()
     date_created = models.DateField(auto_now_add=True)
     hello = models.CharField(max_length=100,default="hello")
+    pic = models.ImageField(upload_to='images/', default="")
     
     def __str__(self) -> str:
         return self.first_name + " - " + self.last_name
@@ -28,6 +29,7 @@ class Purchase(models.Model):
 class Category(models.Model):
     id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=200)
+    pic = models.ImageField(upload_to='images/', default="")
     
     def __str__(self) -> str:
         return self.name
@@ -42,6 +44,7 @@ class Product(models.Model):
     purchase = models.ManyToManyField(Purchase)
     category_id = models.ForeignKey(Category, on_delete=models.CASCADE,default=0)
     url = models.URLField(default="")
+    pic = models.ImageField(upload_to='images/', default="")
     
     def __str__(self) -> str:
         return self.name
