@@ -42,7 +42,7 @@ class Product(models.Model):
     date_created = models.DateField(auto_now_add=True)
     amount = models.IntegerField()
     purchase = models.ManyToManyField(Purchase)
-    category_id = models.ForeignKey(Category, on_delete=models.CASCADE,default=0)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE,default=0)
     pic = models.ImageField(upload_to='images/', default="")
     description = models.CharField(max_length=500, default="")
     
