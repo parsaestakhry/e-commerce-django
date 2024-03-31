@@ -24,7 +24,7 @@ class ManagerSerializer(ModelSerializer):
         
 
 class ProductSerializer(ModelSerializer):
-    category_id = serializers.SlugRelatedField(
+    category= serializers.SlugRelatedField(
         slug_field='name',
         queryset = Category.objects.all()
     )
