@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'api',
     'crispy_forms',
     'register',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
@@ -51,6 +52,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'ecommerce.urls'
@@ -136,3 +139,8 @@ CRISPY_TEMPLATE_PACK="bootstrap4"
 MEDIA_ROOT = BASE_DIR/'media'
 
 MEDIA_URL = '/media/'
+
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+]

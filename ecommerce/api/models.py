@@ -43,8 +43,8 @@ class Product(models.Model):
     amount = models.IntegerField()
     purchase = models.ManyToManyField(Purchase)
     category_id = models.ForeignKey(Category, on_delete=models.CASCADE,default=0)
-    url = models.URLField(default="")
     pic = models.ImageField(upload_to='images/', default="")
+    description = models.CharField(max_length=500, default="")
     
     def __str__(self) -> str:
         return self.name
