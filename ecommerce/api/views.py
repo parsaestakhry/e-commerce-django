@@ -284,9 +284,9 @@ class productList(generics.ListAPIView):
     
     def get_queryset(self):
         queryset = Product.objects.all()
-        products = self.request.query_params.get('category')
-        if products is not None:
-            queryset = queryset.filter(category=products)
+        params = self.request.query_params.get('category')
+        if params is not None:
+            queryset = queryset.filter(category_id=params)
         
         print(queryset)
             
