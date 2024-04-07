@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from rest_framework.views import exception_handler
 from rest_framework import status
 from django.shortcuts import render
+from rest_framework import generics
 # Create your views here.
 
 
@@ -264,6 +265,17 @@ def deleteManager(request,id):
         return Response(status=status.HTTP_404_NOT_FOUND)
     manager.delete()
     return HttpResponse("deleted")
+
+
+@api_view(['GET'])
+def getCategoryProducts(request):
+    products = Product.objects.filter(category=1).values()
+    print(products)
+    
+    return HttpResponse("hello")
+    
+    
+
 
 
 

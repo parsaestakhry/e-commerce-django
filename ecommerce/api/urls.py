@@ -1,5 +1,6 @@
 from . import views
 from django.urls import path
+from django.urls import re_path
 
 urlpatterns = [
     path("", views.hello, name="hello"),
@@ -39,10 +40,9 @@ urlpatterns = [
     path('delete-manager/<int:id>/', views.deleteManager, name='delete-manager'),
     
     
-
-    
-    
-    
+    # get products in category
+    # re_path(r'^api/products/category/(?P<category>\w+)/$', productCategoryList.as_view() , name='get_category_product'),
+    path('get-category-products/', views.getCategoryProducts, name='get-category-products'),
     
     
     
