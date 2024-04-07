@@ -269,11 +269,32 @@ def deleteManager(request,id):
 
 @api_view(['GET'])
 def getCategoryProducts(request):
-    products = Product.objects.filter(category=1).values()
+    products = Product.objects.filter(category_id=2).values()
     print(products)
+    # serializer = ProductSerializer(products, many=True)
+    # print(serializer.data)
+    # print(products)
     
     return HttpResponse("hello")
     
+    
+    
+class productList(generics.ListAPIView):
+    serializer_class = ProductSerializer
+    
+    def get_queryset(self):
+        queryset = Product.objects.all()
+        products = self.request.query_params.get('category')
+        if products is not None:
+            queryset = queryset.filter(category=products)
+        
+        print(queryset)
+            
+        return queryset
+    
+    
+    
+
     
 
 
