@@ -297,7 +297,14 @@ class productList(generics.ListAPIView):
 def getCategoryId(request, category):
     category = Category.objects.get(name=category)
     serializer = CategorySerializer(category, many=False)
-    return Response(serializer.data)
+    data = serializer.data
+    category_id = data['id']
+    print(category_id)
+    products = Product.objects.filter(category=category_id)
+    print(products)
+    productsSerilizer = ProductSerializer(products, many=True)
+    
+    return Response(productsSerilizer.data)
     
     
 
