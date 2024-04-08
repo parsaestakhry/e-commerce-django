@@ -288,10 +288,16 @@ class productList(generics.ListAPIView):
         if params is not None:
             queryset = queryset.filter(category_id=params)
         
-        print(queryset)
+        # print(queryset)
             
         return queryset
-    
+
+@api_view(['GET'])
+
+def getCategoryId(request, category):
+    category = Category.objects.get(name=category)
+    serializer = CategorySerializer(category, many=False)
+    return Response(serializer.data)
     
     
 
