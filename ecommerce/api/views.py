@@ -294,7 +294,7 @@ class productList(generics.ListAPIView):
 
 @api_view(['GET'])
 
-def getCategoryId(request, category):
+def getCategoryIdProducts(request, category):
     category = Category.objects.get(name=category)
     serializer = CategorySerializer(category, many=False)
     data = serializer.data
