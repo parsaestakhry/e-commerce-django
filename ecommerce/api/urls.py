@@ -44,7 +44,7 @@ urlpatterns = [
     # re_path(r'^api/products/category/(?P<category>\w+)/$', productCategoryList.as_view() , name='get_category_product'),
     # path('get-category-products/', views.getCategoryProducts, name='get-category-products'),
     path('get-category-products/', views.productList.as_view(), name='hello'),
-    path('get-category-id/<str:category>/' , views.getCategoryId, name='get-category')
+    path('get-category-id/<str:category>/' , views.getCategoryIdProducts, name='get-category')
     
     
     
