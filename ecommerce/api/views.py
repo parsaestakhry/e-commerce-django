@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from rest_framework.decorators import api_view
 from .models import Customer,Category,Product,Purchase,Manager
-from .serializers import CustomerSerializer,CategorySerializer,ProductSerializer,PurchaseSerializer,ManagerSerializer
+from .serializers import CustomerSerializer,CategorySerializer,ProductSerializer,PurchaseSerializer,ManagerSerializer,UserSerializer
 from rest_framework.response import Response
 from rest_framework.views import exception_handler
 from rest_framework import status
@@ -10,6 +10,10 @@ from rest_framework import generics
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication,TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
+from rest_framework import generics, permissions
+from rest_framework.response import Response
+from rest_framework.authtoken.models import Token
+from django.contrib.auth import authenticate
 
 # Create your views here.
 
@@ -325,6 +329,40 @@ class authenticate(APIView):
             'auth' : str(request.auth),
         }
         return Response(content)
+    
+    
+    
+class UserRegistrationView(generics.CreateAPIView):
+    serializer_class = UserSerializer
+    permission_classes = [permissions.AllowAny]
+    
+    
+    
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from django.contrib.auth import authenticate
+from rest_framework.authtoken.models import Token
+
+@api_view(['POST'])
+def UserLoginView(request):
+    try:
+        username = request.data.get('username')
+        password = request.data.get('password')
+
+        if not username or not password:
+            return Response({'error': 'Username or password is missing'}, status=400)
+
+        user = authenticate(username=username, password=password)
+        
+        if user is not None:
+            token, _ = Token.objects.get_or_create(user=user)
+            return Response({'token': token.key})
+        else:
+            return Response({'error': 'Invalid credentials'}, status=401)
+    except Exception as e:
+        return Response({'error': str(e)}, status=500)
+
+        
 
     
 
