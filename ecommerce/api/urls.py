@@ -45,7 +45,11 @@ urlpatterns = [
     # path('get-category-products/', views.getCategoryProducts, name='get-category-products'),
     path('get-category-products/', views.productList.as_view(), name='hello'),
     path('get-category-id/<str:category>/' , views.getCategoryIdProducts, name='get-category'),
-    path('authenticate/', views.authenticate.as_view(), name='authenticate')
+    # path('authenticate/', views.authenticate.as_view(), name='authenticate'),
+    
+    # register views
+    path('register/', views.UserRegistrationView.as_view(), name='register'),
+    path("login/", views.UserLoginView, name="user-login")
     
     
     
