@@ -7,6 +7,10 @@ from rest_framework.views import exception_handler
 from rest_framework import status
 from django.shortcuts import render
 from rest_framework import generics
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication,TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.views import APIView
+
 # Create your views here.
 
 
@@ -293,7 +297,6 @@ class productList(generics.ListAPIView):
         return queryset
 
 @api_view(['GET'])
-
 def getCategoryIdProducts(request, category):
     category = Category.objects.get(name=category)
     serializer = CategorySerializer(category, many=False)
@@ -305,8 +308,23 @@ def getCategoryIdProducts(request, category):
     productsSerilizer = ProductSerializer(products, many=True)
     
     return Response(productsSerilizer.data)
+
+
+
+
     
     
+    
+class authenticate(APIView):
+    authentication_classes = [SessionAuthentication, BasicAuthentication, TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+    
+    def get(self, request, format=None):
+        content = {
+            'user': str(request.user),
+            'auth' : str(request.auth),
+        }
+        return Response(content)
 
     
 
