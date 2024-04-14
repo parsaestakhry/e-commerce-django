@@ -342,6 +342,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from django.contrib.auth import authenticate
 from rest_framework.authtoken.models import Token
+from django.http import JsonResponse
 
 @api_view(['POST'])
 def UserLoginView(request):
@@ -356,11 +357,14 @@ def UserLoginView(request):
         
         if user is not None:
             token, _ = Token.objects.get_or_create(user=user)
-            return Response({'token': token.key})
+            response = JsonResponse({'message': 'Login successful'})
+            response.set_cookie('auth_token', token.key, httponly=True)  # Setting token as a cookie
+            return response
         else:
             return Response({'error': 'Invalid credentials'}, status=401)
     except Exception as e:
         return Response({'error': str(e)}, status=500)
+
 
         
 
