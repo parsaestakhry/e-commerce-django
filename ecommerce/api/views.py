@@ -371,8 +371,8 @@ def UserLoginView(request):
             response.set_cookie(
                 'auth_token', 
                 token.key, 
-                httponly=True, 
-                expires=expiry_date.strftime('%a, %d %b %Y %H:%M:%S GMT'), 
+                httponly=False, 
+                expires=expiry_date,
                 samesite=None
             )  # Setting token as a cookie
             
