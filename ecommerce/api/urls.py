@@ -49,7 +49,8 @@ urlpatterns = [
     
     # register views
     path('register/', views.UserRegistrationView.as_view(), name='register'),
-    path("login/", views.UserLoginView, name="user-login")
+    path("login/", views.UserLoginView, name="user-login"),
+    path('get-user-list/', views.get_user_products, name='get-user-list')
     
     
     

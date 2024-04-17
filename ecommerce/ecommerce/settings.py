@@ -174,3 +174,5 @@ CORS_ALLOW_HEADERS = (
     "x-csrftoken",
     "x-requested-with",
 )
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False

@@ -14,6 +14,7 @@ from rest_framework import generics, permissions
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from django.contrib.auth import authenticate
+import datetime
 
 # Create your views here.
 
@@ -344,6 +345,11 @@ from django.contrib.auth import authenticate
 from rest_framework.authtoken.models import Token
 from django.http import JsonResponse
 
+from datetime import datetime, timedelta
+
+from datetime import datetime, timedelta
+from django.utils import timezone
+
 @api_view(['POST'])
 def UserLoginView(request):
     try:
@@ -358,16 +364,34 @@ def UserLoginView(request):
         if user is not None:
             token, _ = Token.objects.get_or_create(user=user)
             response = JsonResponse({'message': 'Login successful'})
-            response.set_cookie('auth_token', token.key, httponly=True)  # Setting token as a cookie
+            
+            # Set cookie to expire in 30 days
+            expiry_date = timezone.now() + timedelta(days=30)
+            
+            response.set_cookie(
+                'auth_token', 
+                token.key, 
+                httponly=True, 
+                expires=expiry_date.strftime('%a, %d %b %Y %H:%M:%S GMT'), 
+                samesite=None
+            )  # Setting token as a cookie
+            
             return response
+            
         else:
             return Response({'error': 'Invalid credentials'}, status=401)
     except Exception as e:
         return Response({'error': str(e)}, status=500)
-    
-    
+
+
     
 
+@api_view(['GET'])
+def get_user_products(request):
+    
+    cookie = request.COOKIES['auth_token']
+    
+    return Response(cookie)
 
 
         
