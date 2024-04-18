@@ -363,7 +363,7 @@ def UserLoginView(request):
         
         if user is not None:
             token, _ = Token.objects.get_or_create(user=user)
-            response = JsonResponse({'message': 'Login successful'})
+            response = JsonResponse({'message': 'Login successful','token':token.key})
             
             # Set cookie to expire in 30 days
             expiry_date = timezone.now() + timedelta(days=30)
