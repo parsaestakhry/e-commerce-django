@@ -337,6 +337,27 @@ class authenticate(APIView):
 class UserRegistrationView(generics.CreateAPIView):
     serializer_class = UserSerializer
     permission_classes = [permissions.AllowAny]
+
+from django.contrib.auth.models import Group
+
+
+# @api_view(['POST'])
+# def registerUser(request):
+#     data = request.data
+#     serializer = UserSerializer(data=data)
+#     if serializer.is_valid():
+#         serializer.save()
+#         # print(serializer.data)
+#         userdata = serializer.data
+#         id = userdata['id']
+#         user = User.objects.get(id=id)
+#         # print(user)
+#         user_group = Group.objects.get(name="customers")
+#         user.groups.add(user_group)
+#         # print(user)
+#         # //print(username)
+#         return Response(serializer.data, status=status.HTTP_201_CREATED)
+#     return Response(status=status.HTTP_400_BAD_REQUEST)
     
     
     
