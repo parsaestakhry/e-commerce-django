@@ -14,6 +14,7 @@ from rest_framework import generics, permissions
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from django.contrib.auth import authenticate
+from django.contrib.auth.models import User
 import datetime
 
 # Create your views here.
@@ -389,9 +390,15 @@ def UserLoginView(request):
 @api_view(['GET'])
 def get_user_products(request):
     
-    cookie = request.COOKIES['auth_token']
-    
-    return Response(cookie)
+    user = Token.objects.get(key="cd63f482cf3a409a5c06dd961c14f886b2f43313").user
+    serializer = UserSerializer(user, many=False)
+    username = serializer.data.get('username')
+    user_object = User.objects.get(username=username)
+    user_id = user_object.pk
+    purchases = Purchase.objects.filter(customer=user_id)
+    purchase_serializer = PurchaseSerializer(purchases, many=True)
+    print(purchase_serializer.data) 
+    return Response(serializer.data)
 
 
         
