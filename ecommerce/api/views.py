@@ -387,18 +387,34 @@ def UserLoginView(request):
 
     
 
-@api_view(['GET'])
+@api_view(['GET','POST'])
 def get_user_products(request):
     
-    user = Token.objects.get(key="cd63f482cf3a409a5c06dd961c14f886b2f43313").user
+    data = request.data
+    request_token = data['token']
+    
+    user = Token.objects.get(key=request_token).user
     serializer = UserSerializer(user, many=False)
     username = serializer.data.get('username')
     user_object = User.objects.get(username=username)
     user_id = user_object.pk
+    
     purchases = Purchase.objects.filter(customer=user_id)
     purchase_serializer = PurchaseSerializer(purchases, many=True)
-    print(purchase_serializer.data) 
-    return Response(serializer.data)
+    array = purchase_serializer.data
+    for item in array:
+        if item.get('customer') == username:
+            id = item.get('id')
+            products = Product.objects.filter(purchase=id)
+            product_serializer = ProductSerializer(products, many=True)
+            return Response(product_serializer.data)
+        
+        
+    
+    
+    # print(product_serializer.data)
+    
+    return Response(status=status.HTTP_404_NOT_FOUND)
 
 
         
