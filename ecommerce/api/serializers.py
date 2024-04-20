@@ -34,6 +34,10 @@ class ProductSerializer(ModelSerializer):
         
 
 class PurchaseSerializer(ModelSerializer):
+    customer = serializers.SlugRelatedField(
+        slug_field='username',
+        queryset = User.objects.all()
+    )
     class Meta:
         model = Purchase
         fields = "__all__"
