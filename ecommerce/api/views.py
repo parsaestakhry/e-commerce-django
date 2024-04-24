@@ -21,7 +21,7 @@ import datetime
 
 
 def hello(request):
-    return HttpResponse("hello")
+    return HttpResponse("helloooo")
 
 # get multiple items
 
