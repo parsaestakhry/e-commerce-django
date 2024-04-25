@@ -50,7 +50,9 @@ urlpatterns = [
     # register views
     path('register/', views.UserRegistrationView.as_view(), name='register'),
     path("login/", views.UserLoginView, name="user-login"),
-    path('get-user-list/', views.get_user_products, name='get-user-list')
+    path('get-user-list/', views.get_user_products, name='get-user-list'),
+    path('add-to-list/<int:product_id>/', views.add_to_user_purchase, name='add-to-user-list'),
+    path('remove-from-list/<int:product_id>/', views.delete_from_list, name='remove-from-list')
     
     
     
