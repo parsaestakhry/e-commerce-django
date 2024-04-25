@@ -438,26 +438,65 @@ def get_user_products(request):
     return Response(status=status.HTTP_404_NOT_FOUND)
 
 
+
+@api_view(['POST'])
+def add_to_user_purchase(request,product_id):
+    
+    # get user token in request
+    data = request.data
+    request_token = data['token']
+    p_id = int(product_id)
+    # get user id using token
+    user = Token.objects.get(key=request_token).user
+    serializer = UserSerializer(user, many=False)
+    username = serializer.data.get('username')
+    user_object = User.objects.get(username=username)
+    user_id = user_object.pk
+    
+    # get user purchase using user id
+    purchases = Purchase.objects.get(customer=user_id)
+    
+    purchase_serializer = PurchaseSerializer(purchases, many=False)
+    array = purchase_serializer.data
+    # print(array)
+    # print(username)
+    
+    
         
+    product =  Product.objects.get(id=p_id)
+    print(product)
+    product.purchase.add(purchases)
+           
+                 
+    return Response("hello")
 
+
+
+@api_view(['DELETE'])
+def delete_from_list(request,product_id):
+    # get user token in request
+    data = request.data
+    request_token = data['token']
+    p_id = int(product_id)
+    # get user id using token
+    user = Token.objects.get(key=request_token).user
+    serializer = UserSerializer(user, many=False)
+    username = serializer.data.get('username')
+    user_object = User.objects.get(username=username)
+    user_id = user_object.pk
     
-
-
-
-
-
-
-
-
-
-
-
-
-
+    # get user purchase using user id
+    purchases = Purchase.objects.get(customer=user_id)
     
-    
+    purchase_serializer = PurchaseSerializer(purchases, many=False)
+    array = purchase_serializer.data
+    # print(array)
+    # print(username)
     
     
         
-
-
+    product =  Product.objects.get(id=p_id)
+    print(product)
+    product.purchase.remove(purchases)
+    
+    return Response("hello")
