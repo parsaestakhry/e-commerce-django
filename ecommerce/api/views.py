@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from rest_framework.decorators import api_view
 from .models import Customer,Category,Product,Purchase,Manager,purhase_product_user
-from .serializers import CustomerSerializer,CategorySerializer,ProductSerializer,PurchaseSerializer,ManagerSerializer,UserSerializer
+from .serializers import CustomerSerializer,CategorySerializer,ProductSerializer,PurchaseSerializer,ManagerSerializer,UserSerializer,Purchase_prouct_user_serializer
 from rest_framework.response import Response
 from rest_framework.views import exception_handler
 from rest_framework import status
@@ -415,27 +415,20 @@ def get_user_products(request):
     request_token = data['token']
     
     user = Token.objects.get(key=request_token).user
-    serializer = UserSerializer(user, many=False)
-    username = serializer.data.get('username')
-    user_object = User.objects.get(username=username)
-    user_id = user_object.pk
+    user_id = user.pk
     
-    purchases = Purchase.objects.filter(customer=user_id)
-    purchase_serializer = PurchaseSerializer(purchases, many=True)
-    array = purchase_serializer.data
-    for item in array:
-        if item.get('customer') == username:
-            id = item.get('id')
-            products = Product.objects.filter(purchase=id)
-            product_serializer = ProductSerializer(products, many=True)
-            return Response(product_serializer.data)
-        
-        
+    purchase = Purchase.objects.get(customer=user_id)
+
+    cart_array = purhase_product_user.objects.filter(purchase_id=purchase.pk)
+    
+    cart_array_serializer = Purchase_prouct_user_serializer(cart_array, many=True)
+    
+    if cart_array_serializer.is_valid:
+        return Response(cart_array_serializer.data)
     
     
-    # print(product_serializer.data)
     
-    return Response(status=status.HTTP_404_NOT_FOUND)
+    return Response("hello")
 
 
 
@@ -472,34 +465,38 @@ def add_to_user_purchase(request,product_id):
 
 
 
+
+
 @api_view(['DELETE'])
-def delete_from_list(request,product_id):
-    # get user token in request
-    data = request.data
-    request_token = data['token']
-    p_id = int(product_id)
-    # get user id using token
-    user = Token.objects.get(key=request_token).user
-    serializer = UserSerializer(user, many=False)
-    username = serializer.data.get('username')
-    user_object = User.objects.get(username=username)
-    user_id = user_object.pk
-    
-    # get user purchase using user id
-    purchases = Purchase.objects.get(customer=user_id)
-    
-    purchase_serializer = PurchaseSerializer(purchases, many=False)
-    array = purchase_serializer.data
-    # print(array)
-    # print(username)
-    
-    
+def delete_from_list(request,id):
+    try:
+        # Get user token from request
+        # data = request.data
+        # request_token = data['token']
+        # product_id = int(product_id)
+        # product = Product.objects.get(id=product_id)
+        # Get user using token
+        # user = Token.objects.get(key=request_token).user
         
-    product =  Product.objects.get(id=p_id)
-    print(product)
-    product.purchase.remove(purchases)
+        # Get user's purchases
+        # purchases = Purchase.objects.filter(id=purchase_id)
+        
+        # Loop through user's purchases
+        delete_item = purhase_product_user.objects.get(id=id)
+            # Delete from purchase_product_model where product_id and purchase_id match
+        purhase_product_user.objects.get(id=id).delete()
+        
+        return Response("Deletion successful", status=status.HTTP_204_NO_CONTENT)
     
-    return Response("hello")
+    except Token.DoesNotExist:
+        return Response("Invalid token", status=status.HTTP_400_BAD_REQUEST)
+    
+    except Purchase.DoesNotExist:
+        return Response("No purchase found for this user", status=status.HTTP_404_NOT_FOUND)
+    
+    except Exception as e:
+        return Response(str(e), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 
 
 
