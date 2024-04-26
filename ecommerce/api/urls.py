@@ -53,7 +53,7 @@ urlpatterns = [
     # user list
     path('get-user-list/', views.get_user_products, name='get-user-list'),
     path('add-to-list/<int:product_id>/', views.add_to_user_purchase, name='add-to-user-list'),
-    path('remove-from-list/<int:product_id>/', views.delete_from_list, name='remove-from-list'),
+    path('remove-from-list/<int:id>/', views.delete_from_list, name='remove-from-list'),
     path('add-multiple-list/<int:product_id>/<int:amount>/', views.add_multiple_to_list, name='add-multiple-to-list')
     
     
