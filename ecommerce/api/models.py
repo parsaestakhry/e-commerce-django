@@ -60,7 +60,7 @@ class Manager(models.Model):
     
     
 class purhase_product_user(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     purchase_id = models.ForeignKey(Purchase, on_delete=models.CASCADE)
     product_id = models.ForeignKey(Product, on_delete=models.CASCADE)
     product_amount = models.IntegerField()
