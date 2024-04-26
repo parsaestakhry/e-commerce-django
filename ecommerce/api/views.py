@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from rest_framework.decorators import api_view
-from .models import Customer,Category,Product,Purchase,Manager
+from .models import Customer,Category,Product,Purchase,Manager,purhase_product_user
 from .serializers import CustomerSerializer,CategorySerializer,ProductSerializer,PurchaseSerializer,ManagerSerializer,UserSerializer
 from rest_framework.response import Response
 from rest_framework.views import exception_handler
@@ -500,3 +500,36 @@ def delete_from_list(request,product_id):
     product.purchase.remove(purchases)
     
     return Response("hello")
+
+
+
+
+@api_view(['POST'])
+def add_multiple_to_list(request,product_id,amount):
+    # assigning data to a variable
+    data = request.data
+    # catching the token inside the request
+    token = data['token']
+    # converting type
+    product_id = int(product_id)
+    amount = int(amount)
+    # accessing the product object
+    product = Product.objects.get(id=product_id)
+    product_pk = product.pk
+    # accessing the user object
+    user = Token.objects.get(key=token).user
+    user_id = user.pk
+    # accessing the purchase object
+    purchase = Purchase.objects.get(customer=user_id)
+    purchase_id = purchase.pk
+    
+    purhase_product_user.objects.create(
+        purchase_id = purchase,
+        product_id = product,
+        product_amount = amount
+        
+    )
+    
+    print(purhase_product_user.objects.all())
+    
+    return Response(status=status.HTTP_200_OK)
