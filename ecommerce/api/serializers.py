@@ -1,6 +1,6 @@
 from rest_framework.serializers import ModelSerializer
 from rest_framework import serializers
-from .models import Customer,Category,Manager,Product,Purchase
+from .models import Customer,Category,Manager,Product,Purchase,purhase_product_user
 from django.contrib.auth.models import User
 
 class CustomerSerializer(ModelSerializer):
@@ -49,6 +49,12 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('username', 'email', 'password')
+        
+        
+class Purchase_prouct_user_serializer(serializers.ModelSerializer):
+    class Meta:
+        model = purhase_product_user
+        fields = "__all__"
         
         
 
