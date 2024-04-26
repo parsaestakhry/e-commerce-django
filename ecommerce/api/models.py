@@ -59,6 +59,17 @@ class Manager(models.Model):
         return self.first_name
     
     
+class purhase_product_user(models.Model):
+    id = models.IntegerField(primary_key=True)
+    purchase_id = models.ForeignKey(Purchase, on_delete=models.CASCADE)
+    product_id = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product_amount = models.IntegerField()
+    
+    def __str__(self):
+        return str(self.id)
+    
+    
+    
     
     
 
