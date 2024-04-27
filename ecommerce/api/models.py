@@ -64,7 +64,7 @@ class purhase_product_user(models.Model):
     purchase_id = models.ForeignKey(Purchase, on_delete=models.CASCADE)
     product_id = models.ForeignKey(Product, on_delete=models.CASCADE)
     product_amount = models.IntegerField()
-    
+    purchase_amount = models.DecimalField(max_digits=7, decimal_places=2, default=0)
     def __str__(self):
         return str(self.id)
     
