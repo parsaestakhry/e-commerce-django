@@ -518,7 +518,6 @@ def add_multiple_to_list(request,product_id,amount):
     user_id = user.pk
     # accessing the purchase object
     purchase = Purchase.objects.get(customer=user_id)
-    purchase_id = purchase.pk
     purchase_amount = product.price * amount
     purhase_product_user.objects.create(
         purchase_id = purchase,
