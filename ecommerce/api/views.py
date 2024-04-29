@@ -532,10 +532,14 @@ def add_multiple_to_list(request,product_id,amount):
     return Response(status=status.HTTP_200_OK)
 
 
-@api_view(['GET'])
+@api_view(['GET', 'POST'])
 def calculate_cart(request):
+     # assigning data to a variable
+    # print(request.data)
     data = request.data
+    # catching the token inside the request
     token = data['token']
+    # converting type
     user = Token.objects.get(key=token).user
     user_id = user.pk
     purchase = Purchase.objects.get(customer=user_id)
